@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Админ</title>
+</head>
+<body>
+Привет!
+<br>
+<a href="/admin/people"><button>Все пользователи</button></a>
+<br>
+<a href="/admin/courses"><button>Все курсы</button></a>
+<br>
+<form th:action="@{/logout}" th:method="POST">
+    <input type="submit" value="Выйти">
+</form>
+</body>
+</html>

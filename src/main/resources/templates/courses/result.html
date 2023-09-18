@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Результат</title>
+</head>
+<body>
+<p th:text="${course.getTitle()}"></p>
+<div th:each="question, index : ${questions}" th:with="answer=${userAnswers[__${index.index}__]}">
+    <p th:text="${question.getTitle() + ', ' + question.getCorrectAnswer() + ', Your answer is: ' + answer}"></p>
+</div>
+<br>
+<hr>
+<a th:href="@{/courses/{id}(id=${course.getId()})}" th:text="Вернуться"></a>
+</body>
+</html>

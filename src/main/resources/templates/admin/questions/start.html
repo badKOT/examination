@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать вопросы</title>
+</head>
+<body>
+
+<a th:text="${course.getTitle()}"
+th:href="@{/admin/courses/{id}(id=${course.getId()})}">text</a>
+<br>
+<div th:if="${questions.size() != 0}">
+    <ul>
+        <li th:each="question : ${questions}">
+            <a th:text="${question.getTitle() + ' Correct answer is: ' + question.getCorrectAnswer()}"
+               th:href="@{/admin/questions/{questionId}(questionId=${question.getId()})}"></a>
+            <form th:method="DELETE" th:object="${question}"
+                  th:action="@{/admin/questions/{questionId}/delete(questionId=${question.getId()})}">
+                <input type="submit" value="Удалить">
+            </form>
+        </li>
+    </ul>
+</div>
+<div th:if="${course.getQuestions().size() == 0}">
+    Пока в этом тесте нет вопросов.
+</div>
+<br>
+<a th:href="@{/admin/questions/add}"><button>Добавить вопрос</button></a>
+<br>
+<a th:href="@{/admin/courses/{id}(id=${course.getId()})}">Назад к курсу</a>
+</body>
+</html>

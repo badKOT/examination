@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Создатель</title>
+</head>
+<body>
+
+<p th:text="${person.getUsername()}">value</p>
+
+<p><b>Тесты:</b></p>
+<div th:each="course : ${courses}">
+    <a th:text="${course.getTitle()}"
+        th:href="@{/courses/{id}(id=${course.getId()})}"></a>
+</div>
+
+</body>
+</html>

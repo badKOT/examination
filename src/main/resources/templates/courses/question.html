@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Вопрос</title>
+</head>
+<body>
+
+<p th:text="${question.getTitle()}"></p>
+<p th:text="${question.getAnswer1()}"></p>
+<p th:text="${question.getAnswer2()}"></p>
+<p th:text="${question.getAnswer3()}"></p>
+<p th:text="${question.getAnswer4()}"></p>
+<form th:method="POST" th:action="@{/course/question/{index}(index=${index})}">
+    <label for="answer">Выберите правильный ответ: </label>
+    <select id="answer" name="answerIndex">
+        <option th:value="${question.getAnswer1()}" th:text="${question.getAnswer1()}"></option>
+        <option th:value="${question.getAnswer2()}" th:text="${question.getAnswer2()}"></option>
+        <option th:value="${question.getAnswer3()}" th:text="${question.getAnswer3()}"></option>
+        <option th:value="${question.getAnswer4()}" th:text="${question.getAnswer4()}"></option>
+    </select>
+
+    <input type="submit" value="Подтвердить">
+</form>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Все тесты</title>
+</head>
+<body>
+<div th:each="course : ${courses}">
+    <a th:text="${course.getTitle() + ', ' + course.getOwner().getUsername()}"
+       th:href="@{/courses/{id}(id=${course.getId()})}">text</a>
+</div>
+
+<br>
+<hr>
+<a href="/courses/search"><button>Поиск</button></a><br>
+
+</body>
+</html>

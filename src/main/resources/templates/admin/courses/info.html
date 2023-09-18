@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Курс</title>
+</head>
+<body>
+
+<p th:text="${course.getTitle()}">text</p>
+<div th:if="${questions.size() != 0}">
+    <ul>
+        <li th:each="question : ${questions}">
+            <p th:text="${question.getTitle()}"></p>
+        </li>
+    </ul>
+</div>
+<div th:if="${questions.size() == 0}">
+    Пока в этом тесте нет вопросов.
+</div>
+<br>
+<a th:href="@{/admin/questions/course/{id}(id=${course.getId()})}">
+    <button>Редактировать список вопросов</button>
+</a>
+<br>
+<a th:href="@{/admin/courses/{id}/edit(id=${course.getId()})}"><button>Редактировать</button></a>
+<br>
+<form th:method="DELETE" th:action="@{/admin/courses/{id}(id=${course.getId()})}">
+    <input type="submit" value="Удалить">
+</form>
+<hr>
+<a href="/admin/courses"><button>Все курсы</button></a>
+
+</body>
+</html>

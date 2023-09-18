@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Тест</title>
+</head>
+<body>
+
+<a th:text="${'Тест создан пользователем ' + course.getOwner.getUsername()}"
+th:href="@{/courses/{id}/owner(id=${course.getId()})}"></a>
+<p th:text="${course.getTitle()}">text</p>
+<p th:text="${'Вопросов в тесте: ' + course.getQuestions().size()}">text</p>
+<br>
+<a th:href="@{/course/{id}/start(id=${course.getId()})}"><button>Начать</button></a>
+<br>
+<a href="/courses"><button>Все тесты</button></a>
+<br>
+<a th:href="@{/courses/{id}/owner(id=${course.getId()})}"
+    th:text="${'Все тесты, созданные пользователем ' + course.getOwner().getUsername()}"></a>
+</body>
+</html>

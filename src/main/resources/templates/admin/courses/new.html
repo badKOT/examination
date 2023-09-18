@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Новый тест</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/admin/courses}" th:object="${course}">
+    <label for="title">Введите название: </label>
+    <input type="text" th:field="*{title}" id="title">
+    <div style="color:red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Error</div>
+    <br>
+    <input type="submit" value="Добавить">
+</form>
+
+</body>
+</html>

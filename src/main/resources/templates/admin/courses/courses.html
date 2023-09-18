@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Courses</title>
+</head>
+<body>
+
+<div th:if="${courses == null}">Пока курсов нет</div>
+
+<div th:each="course : ${courses}">
+    <a th:text="${course.getTitle() + ', ' + course.getQuestions().size()}"
+       th:href="@{/admin/courses/{id}(id=${course.getId()})}">text</a>
+</div>
+
+<br>
+<hr>
+<a href="/admin/courses/new"><button>Добавить курс</button></a><br>
+</body>
+</html>

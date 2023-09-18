@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Новый вопрос</title>
+</head>
+<body>
+<a th:href="@{/admin/courses/{id}(id=${course.getId()})}">
+    <button th:text="${'Вернуться к курсу ' + course.getTitle()}">title</button>
+</a>
+<br>
+<form th:method="POST" th:object="${question}" th:action="@{/admin/questions}">
+    <label for="title">Введите вопрос: </label>
+    <input type="text" id="title" th:field="*{title}">
+    <br>
+    <label for="answer1">Введите первый вариант ответа: </label>
+    <input type="text" id="answer1" th:field="*{answer1}">
+    <br>
+    <label for="answer2">Введите второй вариант ответа: </label>
+    <input type="text" id="answer2" th:field="*{answer2}">
+    <br>
+    <label for="answer3">Введите третий вариант ответа: </label>
+    <input type="text" id="answer3" th:field="*{answer3}">
+    <br>
+    <label for="answer4">Введите четвертый вариант ответа: </label>
+    <input type="text" id="answer4" th:field="*{answer4}">
+    <br>
+    <label for="correctAnswer">Введите верный ответ: </label>
+    <select id="correctAnswer" name="correctAnswer">
+        <option value="0" th:text="${'Вариант №1'}"></option>
+        <option value="1" th:text="${'Вариант №2'}"></option>
+        <option value="2" th:text="${'Вариант №3'}"></option>
+        <option value="3" th:text="${'Вариант №4'}"></option>
+    </select>
+    <br>
+    <input type="submit" value="Добавить">
+</form>
+</body>
+</html>
