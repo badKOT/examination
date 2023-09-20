@@ -56,7 +56,6 @@ public class AdminQuestionsController {
     public String questionInfoAndEdit(Model model, @PathVariable int questionId) {
         Question question = questionsService.findOne(questionId);
         model.addAttribute("question", question);
-        model.addAttribute("answers", question.getAnswers());
         return "admin/questions/info";
     }
 

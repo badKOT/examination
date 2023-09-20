@@ -2,10 +2,10 @@ package ru.web.exam.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import org.hibernate.annotations.ColumnTransformer;
+import ru.web.exam.util.MyConverter;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "question")
@@ -19,17 +19,10 @@ public class Question implements Comparable<Question> {
     @NotNull
     private String title;
 
-    @Column(name = "answer1")
-    private String answer1;
-
-    @Column(name = "answer2")
-    private String answer2;
-
-    @Column(name = "answer3")
-    private String answer3;
-
-    @Column(name = "answer4")
-    private String answer4;
+    @Column(columnDefinition = "jsonb")
+    @Convert(converter = MyConverter.class)
+    @ColumnTransformer(write = "?::jsonb")
+    private List<String> answers;
 
     @Column(name = "correct_answer")
     private String correctAnswer;
@@ -41,12 +34,9 @@ public class Question implements Comparable<Question> {
     public Question() {
     }
 
-    public Question(String title, String answer1, String answer2, String answer3, String answer4, String correctAnswer, Course course) {
+    public Question(String title, List<String> answers, String correctAnswer, Course course) {
         this.title = title;
-        this.answer1 = answer1;
-        this.answer2 = answer2;
-        this.answer3 = answer3;
-        this.answer4 = answer4;
+        this.answers = answers;
         this.correctAnswer = correctAnswer;
         this.course = course;
     }
@@ -67,40 +57,12 @@ public class Question implements Comparable<Question> {
         this.title = title;
     }
 
-    public String getAnswer1() {
-        return answer1;
-    }
-
-    public void setAnswer1(String answer1) {
-        this.answer1 = answer1;
-    }
-
-    public String getAnswer2() {
-        return answer2;
-    }
-
-    public void setAnswer2(String answer2) {
-        this.answer2 = answer2;
-    }
-
-    public String getAnswer3() {
-        return answer3;
-    }
-
-    public void setAnswer3(String answer3) {
-        this.answer3 = answer3;
-    }
-
-    public String getAnswer4() {
-        return answer4;
-    }
-
-    public void setAnswer4(String answer4) {
-        this.answer4 = answer4;
-    }
-
     public List<String> getAnswers() {
-        return List.of(answer1, answer2, answer3, answer4);
+        return answers;
+    }
+
+    public void setAnswers(List<String> answers) {
+        this.answers = answers;
     }
 
     public String getCorrectAnswer() {
@@ -123,10 +85,7 @@ public class Question implements Comparable<Question> {
         return "Question{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", 1='" + answer1 + '\'' +
-                ", 2='" + answer2 + '\'' +
-                ", 3='" + answer3 + '\'' +
-                ", 4='" + answer4 + '\'' +
+                ", answers='" + answers + '\'' +
                 ", correct='" + correctAnswer + '\'' +
                 ", course=" + course.getId() +
                 '}';

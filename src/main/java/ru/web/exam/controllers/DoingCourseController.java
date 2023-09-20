@@ -19,7 +19,7 @@ public class DoingCourseController {
     private final CoursesService coursesService;
     private Course course;
     private List<Question> questions;
-    private final List<Integer> userAnswers = new ArrayList<>();
+    private final List<String> userAnswers = new ArrayList<>();
 
     @Autowired
     public DoingCourseController(CoursesService coursesService) {
@@ -43,8 +43,8 @@ public class DoingCourseController {
     }
 
     @PostMapping("question/{index}")
-    public String check(@PathVariable int index, @RequestParam("answerIndex") int answerIndex) {
-        userAnswers.add(answerIndex);
+    public String check(@PathVariable int index, @RequestParam("answerIndex") String answer) {
+        userAnswers.add(answer);
         if (++index < course.getQuestions().size())
             return "redirect:/course/question/" + index;
         return "redirect:/course/" + course.getId() + "/result";
