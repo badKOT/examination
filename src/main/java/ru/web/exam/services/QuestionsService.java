@@ -14,12 +14,10 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class QuestionsService {
     private final QuestionsRepository rep;
-    private final CoursesService coursesService;
 
     @Autowired
-    public QuestionsService(QuestionsRepository rep, CoursesService coursesService) {
+    public QuestionsService(QuestionsRepository rep) {
         this.rep = rep;
-        this.coursesService = coursesService;
     }
 
     public List<Question> findAll() {

@@ -24,6 +24,9 @@ public class Course {
     @OneToMany(mappedBy = "course")
     private List<Question> questions;
 
+//    @ManyToMany(mappedBy = "coursesTaken")
+//    private List<Student> students;
+
     public Course() {
     }
 

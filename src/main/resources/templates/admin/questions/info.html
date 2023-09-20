@@ -13,23 +13,19 @@ th:object="${question}" th:method="PATCH">
     <label for="title">Вопрос: </label>
     <input type="text" th:field="*{title}" id="title">
     <br>
-    <label for="answer1">Первый вариант ответа: </label>
-    <input type="text" th:field="*{answer1}" id="answer1">
-    <br>
-    <label for="answer2">Второй вариант ответа: </label>
-    <input type="text" th:field="*{answer2}" id="answer2">
-    <br>
-    <label for="answer3">Третий вариант ответа: </label>
-    <input type="text" th:field="*{answer3}" id="answer3">
-    <br>
-    <label for="answer4">Четвертый вариант ответа: </label>
-    <input type="text" th:field="*{answer4}" id="answer4">
-    <br>
+    <div th:each="answer : ${question.getAnswers()}">
+        <label th:for="${answer__${answerStat.index}__}"
+                th:text="${'Ответ ' + __${answerStat.index + 1}__}"></label>
+        <input type="text" th:field="*{answers[__${answerStat.index}__]}"
+               th:id="${answer__${answerStat.index}__}"
+               th:value="${question.getAnswers().get(answerStat.index)}">
+        <br>
+    </div>
     <label for="correctAnswer">Введите верный ответ: </label>
     <select id="correctAnswer" name="correctAnswer">
-        <option th:each="answer : ${answers}" th:value="${answerStat.index}"
+        <option th:each="answer : *{answers}" th:value="${answerStat.index}"
                 th:text="${'Вариант ' + __${answerStat.index + 1}__}"
-                th:selected="${question.getCorrectAnswer() == answers.get(__${answerStat.index}__)}"></option>
+                th:selected="${question.getCorrectAnswer() == question.getAnswers().get(__${answerStat.index}__)}"></option>
     </select>
     <br>
     <input type="submit" value="Изменить">
@@ -41,13 +37,3 @@ th:object="${question}" th:method="PATCH">
 
 </body>
 </html>
-<!--${answerStat.index}-->
-
-<!--th:value="${question.getAnswers().get(answerStat.index)}" th:field="*{answers.get(__${answerStat.index}__)}"-->
-
-<!--<select id="correctAnswer" name="correctAnswer">-->
-<!--    <option value="0" th:text="${'Вариант №1'}"></option>-->
-<!--    <option value="1" th:text="${'Вариант №2'}"></option>-->
-<!--    <option value="2" th:text="${'Вариант №3'}"></option>-->
-<!--    <option value="3" th:text="${'Вариант №4'}"></option>-->
-<!--</select>-->
