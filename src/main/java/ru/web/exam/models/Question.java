@@ -19,7 +19,7 @@ public class Question implements Comparable<Question> {
     @NotNull
     private String title;
 
-    @Column(columnDefinition = "jsonb")
+    @Column(name = "answers", columnDefinition = "jsonb")
     @Convert(converter = MyConverter.class)
     @ColumnTransformer(write = "?::jsonb")
     private List<String> answers;
@@ -32,6 +32,10 @@ public class Question implements Comparable<Question> {
     private Course course;
 
     public Question() {
+        this.answers = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            answers.add("");
+        }
     }
 
     public Question(String title, List<String> answers, String correctAnswer, Course course) {

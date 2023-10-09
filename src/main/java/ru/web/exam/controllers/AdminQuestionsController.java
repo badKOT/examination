@@ -10,8 +10,7 @@ import ru.web.exam.models.Question;
 import ru.web.exam.services.CoursesService;
 import ru.web.exam.services.QuestionsService;
 
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/admin/questions")
@@ -44,10 +43,9 @@ public class AdminQuestionsController {
     }
 
     @PostMapping("")
-    public String addQuestion(@ModelAttribute("question") Question question,
-                              @RequestParam("correctAnswer") int index) {
+    public String addQuestion(@ModelAttribute("question") Question question) {
         question.setCourse(course);
-        question.setCorrectAnswer(question.getAnswers().get(index));
+        question.setCorrectAnswer(question.getAnswers().get(Integer.parseInt(question.getCorrectAnswer())));
         questionsService.save(question);
         return "redirect:/admin/questions/course/" + course.getId();
     }
@@ -61,10 +59,8 @@ public class AdminQuestionsController {
 
     @PatchMapping("/{questionId}/edit")
     public String updateQuestion(@ModelAttribute("question") Question question,
-                                 @PathVariable("questionId") int questionId,
-                                 @RequestParam("correctAnswer") int index) {
+                                 @PathVariable("questionId") int questionId ) {
         question.setCourse(course);
-        question.setCorrectAnswer(question.getAnswers().get(index));
         questionsService.update(questionId, question);
         return "redirect:/admin/questions/course/" + course.getId();
     }
@@ -75,3 +71,13 @@ public class AdminQuestionsController {
         return "redirect:/admin/questions/course/" + course.getId();
     }
 }
+/*
+create table student_course_join(
+    id int references student(id) on delete cascade ,
+    course_id int references course(course_id) on delete cascade
+);
+
+alter table student_course_join
+add constraint scj_primary_key
+primary key (id, course_id);
+ */

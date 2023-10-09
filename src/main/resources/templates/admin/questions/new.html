@@ -13,24 +13,18 @@
     <label for="title">Введите вопрос: </label>
     <input type="text" id="title" th:field="*{title}">
     <br>
-    <label for="answer1">Введите первый вариант ответа: </label>
-    <input type="text" id="answer1" th:field="*{answer1}">
-    <br>
-    <label for="answer2">Введите второй вариант ответа: </label>
-    <input type="text" id="answer2" th:field="*{answer2}">
-    <br>
-    <label for="answer3">Введите третий вариант ответа: </label>
-    <input type="text" id="answer3" th:field="*{answer3}">
-    <br>
-    <label for="answer4">Введите четвертый вариант ответа: </label>
-    <input type="text" id="answer4" th:field="*{answer4}">
-    <br>
+    <div th:each="answer : ${question.getAnswers()}">
+        <label th:for="${answer__${answerStat.index}__}"
+               th:text="${'Ответ __${answerStat.index + 1}__:'}"></label>
+        <input type="text" th:field="*{answers[__${answerStat.index}__]}"
+               th:id="${answer__${answerStat.index}__}">
+        <br>
+    </div>
     <label for="correctAnswer">Введите верный ответ: </label>
-    <select id="correctAnswer" name="correctAnswer">
-        <option value="0" th:text="${'Вариант №1'}"></option>
-        <option value="1" th:text="${'Вариант №2'}"></option>
-        <option value="2" th:text="${'Вариант №3'}"></option>
-        <option value="3" th:text="${'Вариант №4'}"></option>
+    <select id="correctAnswer" th:field="*{correctAnswer}">
+        <option th:each="answer : *{answers}" th:value="${answerStat.index}"
+                th:text="${'Вариант ' + __${answerStat.index + 1}__}"
+                th:selected="${question.getCorrectAnswer() == question.getAnswers().get(__${answerStat.index}__)}"></option>
     </select>
     <br>
     <input type="submit" value="Добавить">

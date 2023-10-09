@@ -43,7 +43,7 @@ public class DoingCourseController {
     }
 
     @PostMapping("question/{index}")
-    public String check(@PathVariable int index, @RequestParam("answerIndex") String answer) {
+    public String check(@PathVariable int index, @RequestParam("answer") String answer) {
         userAnswers.add(answer);
         if (++index < course.getQuestions().size())
             return "redirect:/course/question/" + index;
