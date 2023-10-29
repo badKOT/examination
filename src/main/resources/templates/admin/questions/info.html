@@ -20,7 +20,6 @@ th:object="${question}" th:method="PATCH">
                th:id="${answer__${answerStat.index}__}" th:name="${answer__${answerStat.index}__}">
         <br>
     </div>
-<!--    <button th:onclick="${'add_option(__${question.getAnswers().size()}__)'}">Добавить вариант ответа</button>-->
     <label for="correctAnswer">Введите верный ответ: </label>
     <select id="correctAnswer" th:field="*{correctAnswer}">
         <option th:each="answer : *{answers}" th:value="${question.getAnswers().get(__${answerStat.index}__)}"
@@ -34,24 +33,6 @@ th:object="${question}" th:method="PATCH">
 <a th:href="@{/admin/questions/course/{id}(id=${question.getCourse().getId()})}"><button>Назад</button></a>
 <br>
 <a href="/admin/courses"><button>Все курсы</button></a>
-<label for="answer4">Ответ 5</label>
-<input type="text" th:field="*{answers[4]}" id="answer4" name="answer4">
-<!--<script>-->
-<!--    var counter-->
-<!--    function add_option(startCounter) {-->
-<!--        html = '<label for="answer' + startCounter + '>Ответ ' + (startCounter + 1) + '</label>\n' +-->
-<!--            '<input type="text" th:field="*{answers[' + startCounter + ']}"' +-->
-<!--            'id="answer' + startCounter + '" ' +-->
-<!--            'name="answer' + startCounter + '">\n' +-->
-<!--            '<br>'-->
-<!--        if (counter == null) counter = startCounter + 1-->
-<!--        else counter+=1-->
-
-<!--        var optionsDiv = document.getElementById('answerOptions')-->
-<!--        optionsDiv.innerHTML += html-->
-<!--    }-->
-
-<!--</script>-->
 
 </body>
 </html>
